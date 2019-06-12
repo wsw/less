@@ -1,5 +1,6 @@
 package wsw.github.io.less.dao.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import wsw.github.io.less.dao.entity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author wsw
  * @since 2019-06-12
  */
+@Mapper
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
 }
