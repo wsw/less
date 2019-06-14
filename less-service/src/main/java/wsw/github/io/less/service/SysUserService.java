@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author wsw
- * @since 2019-06-12
+ * @since 2019-06-13
  */
 public interface SysUserService extends IService<SysUser> {
-
+    public SysUser findByUsername(String username);
 }

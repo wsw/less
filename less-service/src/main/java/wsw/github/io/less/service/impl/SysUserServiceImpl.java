@@ -1,5 +1,6 @@
 package wsw.github.io.less.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import wsw.github.io.less.dao.entity.SysUser;
 import wsw.github.io.less.dao.mapper.SysUserMapper;
 import wsw.github.io.less.service.SysUserService;
@@ -12,9 +13,13 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author wsw
- * @since 2019-06-12
+ * @since 2019-06-13
  */
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 
+    @Override
+    public SysUser findByUsername(String username) {
+        return baseMapper.findByUsername(username);
+    }
 }

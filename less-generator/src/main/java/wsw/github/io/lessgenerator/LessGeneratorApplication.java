@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -47,6 +48,7 @@ public class LessGeneratorApplication {
         gc.setAuthor("wsw");
         gc.setOpen(false);
         gc.setServiceName("%sService");
+        gc.setDateType(DateType.ONLY_DATE);
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
@@ -65,6 +67,7 @@ public class LessGeneratorApplication {
         pc.setMapper("less.dao.mapper");
         pc.setService("less.service");
         pc.setServiceImpl("less.service.impl");
+        pc.setController("less.controller");
         mpg.setPackageInfo(pc);
 
         // 自定义配置

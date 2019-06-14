@@ -9,7 +9,7 @@ spring:
     password: 123456
 
 mybatis-plus:
-  mapper-locations: classpath:/wsw/github/io/less/dao/xml/*.xml
+  mapper-locations: classpath*:/wsw/github/io/less/dao/xml/*.xml
   #实体扫描，多个package用逗号或者分号分隔
   typeAliasesPackage: wsw.github.io.less.dao.entity
   global-config:
@@ -30,8 +30,6 @@ mybatis-plus:
     logic-not-delete-value: 0
     #自定义填充策略接口实现
     #meta-object-handler: com.baomidou.springboot.xxx
-    #自定义SQL注入器
-    sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
