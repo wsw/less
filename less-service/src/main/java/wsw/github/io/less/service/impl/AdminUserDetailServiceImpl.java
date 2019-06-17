@@ -30,8 +30,6 @@ public class AdminUserDetailServiceImpl implements UserDetailsService {
         //定义权限列表.
         user.setRoles(sysRoleService.listRolesByUserId(user.getUserId()));
 
-        System.out.println(user.getAuthorities());
-
         return user;
     }
 }

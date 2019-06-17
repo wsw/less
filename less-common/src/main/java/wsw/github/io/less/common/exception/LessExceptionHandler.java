@@ -12,7 +12,7 @@ public class LessExceptionHandler {
     @ExceptionHandler(Exception.class)
     public R handleException(Exception e) {
         log.error(e.getMessage(), e);
-        return R.error();
+        return R.error(e.getMessage());
     }
 
     @ExceptionHandler(LessException.class)

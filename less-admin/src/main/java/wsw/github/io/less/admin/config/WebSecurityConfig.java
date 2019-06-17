@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -31,13 +32,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
+        // return NoOpPasswordEncoder.getInstance();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(adminUserDetailService);
+        auth.userDetailsService(adminUserDetailService)
+        .passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -49,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/hello").hasRole("ROOT")
                 .antMatchers("/auth/*").permitAll()
-                .anyRequest().fullyAuthenticated();
+                .anyRequest().authenticated();
         http.addFilterBefore(adminAuthorizationTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

@@ -9,8 +9,6 @@ import wsw.github.io.less.service.SysUserTokenService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-
 /**
  * <p>
  * 系统用户Token 服务实现类
@@ -46,7 +44,7 @@ public class SysUserTokenServiceImpl extends ServiceImpl<SysUserTokenMapper, Sys
             userToken.setExpireTime(expired);
             userToken.setToken(token);
 
-            this.updateById(userToken);
+            this.saveOrUpdate(userToken);
         }
 
         return R.ok().put("token", token).put("expire", EXPIRE);
