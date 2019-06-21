@@ -3,8 +3,8 @@
     <!--    <springProperty scope="context" name="contextName" source="spring.application.name"/>-->
     <!--    <springProperty scope="context" name="logPath" source="logback.logpath"/>-->
     <property name="contextName" value="Less" />
-    <property name="logPath" value="/logs" />
-    <contextName>${contextName}</contextName>
+    <property name="logPath" value="logs" />
+    <contextName>less</contextName>
     <property name="LOG_HOME" value="${logPath}/${contextName}" />
     <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %X{reqId} %X{serverIp} %X{serverName} %-5level %logger{100} - %msg%n" />
     <!-- info日志 appender  -->
@@ -61,10 +61,10 @@
             <charset class="java.nio.charset.Charset">UTF-8</charset>
         </encoder>
     </appender>
-    <logger name="com.example.demo" level="DEBUG"/>
+    <logger name="wsw.github.io" level="DEBUG"/>
     <logger name="org.springframework" level="INFO"/>
     <!--日志打印的包的范围，及分类日志文件存储 -->
-    <logger name="com.example.demo" additivity="false">
+    <logger name="wsw.github.io" additivity="false">
         <level value="DEBUG" />
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="ERROR"/>
