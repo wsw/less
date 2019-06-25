@@ -1,5 +1,6 @@
 package wsw.github.io.less.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import wsw.github.io.less.dao.entity.SysMenu;
 import wsw.github.io.less.dao.entity.SysRole;
 import wsw.github.io.less.dao.mapper.SysMenuMapper;
@@ -22,6 +23,13 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     public List<SysMenu> listMenusByRoles(List<SysRole> roles) {
-        return baseMapper.listMenusByRoles(roles);
+        if (roles.stream().filter(role -> role.getRoleName() == "SUPER") != null){
+            QueryWrapper query = new QueryWrapper();
+//            query.le("type", 1);
+            query.orderByAsc("order_num");
+            return baseMapper.selectList(query);
+        } else {
+            return baseMapper.listMenusByRoles(roles);
+        }
     }
 }

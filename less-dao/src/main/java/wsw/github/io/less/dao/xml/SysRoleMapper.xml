@@ -6,4 +6,10 @@
       LEFT JOIN sys_user_role ON sys_user_role.role_id = sys_role.role_id
       WHERE sys_user_role.user_id = #{id}
     </select>
+    
+    <select id="listByMenuId" parameterType="long" resultType="wsw.github.io.less.dao.entity.SysRole">
+        SELECT * FROM sys_role
+            LEFT JOIN sys_role_menu ON sys_role_menu.role_id = sys_role.role_id
+        WHERE sys_role_menu.menu_id = #{id}
+    </select>
 </mapper>

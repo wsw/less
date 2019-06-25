@@ -20,7 +20,7 @@ public class SysUserController extends AbstractController {
     private SysUserService sysUserService;
     private PasswordEncoder passwordEncoder;
 
-    @PostMapping("/user")
+    @PostMapping("user")
     public R addUser(@RequestBody SysUser user) {
         if (user.getUsername() != null && user.getPassword() != null) {
             if (sysUserService.findByUsername(user.getUsername()) == null) {
@@ -35,9 +35,9 @@ public class SysUserController extends AbstractController {
         return R.ok("新增用户成功！");
     }
 
-    @GetMapping("/hello")
+    @GetMapping("hello")
     public R hello() {
         R result = new R();
-        return result.put("count", getCurrentUser());
+        return result.ok().put("count", getCurrentUser());
     }
 }
