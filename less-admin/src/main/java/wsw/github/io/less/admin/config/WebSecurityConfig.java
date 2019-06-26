@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -54,18 +55,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(unauthorizedHandler)
                 .and()
                 .authorizeRequests().withObjectPostProcessor(
-                        new ObjectPostProcessor<FilterSecurityInterceptor>() {
-                            @Override
-                            public <O extends FilterSecurityInterceptor> O postProcess(O o) {
-                                o.setSecurityMetadataSource(adminFilterInvocationSecurityMetadataSource());
-                                o.setAccessDecisionManager(adminAccessDecisionManager());
-                                return o;
-                            }
-                        })
-                .antMatchers("/auth/*").permitAll()
+                    new ObjectPostProcessor<FilterSecurityInterceptor>() {
+                        @Override
+                        public <O extends FilterSecurityInterceptor> O postProcess(O o) {
+                            o.setSecurityMetadataSource(adminFilterInvocationSecurityMetadataSource());
+                            o.setAccessDecisionManager(adminAccessDecisionManager());
+                            return o;
+                        }
+                    })
+//                .antMatchers("/auth/*").permitAll();
                 .anyRequest().authenticated();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(adminAuthorizationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/auth/**");
+        web.ignoring().antMatchers("/druid/**");
     }
 
     @Bean
