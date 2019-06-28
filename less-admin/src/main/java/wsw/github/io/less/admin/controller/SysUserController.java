@@ -40,4 +40,9 @@ public class SysUserController extends AbstractController {
         R result = new R();
         return result.ok().put("count", getCurrentUser());
     }
+
+    @GetMapping("user")
+    public R user() {
+        return R.ok().put("user", getCurrentUser());
+    }
 }
