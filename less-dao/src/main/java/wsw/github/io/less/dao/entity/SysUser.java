@@ -1,6 +1,7 @@
 package wsw.github.io.less.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.Transient;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -29,7 +31,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@JsonIgnoreProperties(value = {"password"})
+@JsonIgnoreProperties(value = {"password", "authorities"})
 public class SysUser implements UserDetails, Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -77,7 +79,8 @@ public class SysUser implements UserDetails, Serializable {
      */
     private Date createTime;
 
-    private List<SysRole> roles;
+    @TableField(exist = false)
+    private List<SysRole> roles = new ArrayList<>();
 
 
     @Override

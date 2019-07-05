@@ -6,9 +6,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import wsw.github.io.less.common.exception.LessException;
+import wsw.github.io.less.common.util.Constant;
+import wsw.github.io.less.dao.entity.SysRole;
 import wsw.github.io.less.dao.entity.SysUser;
 import wsw.github.io.less.service.SysRoleService;
 import wsw.github.io.less.service.SysUserService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service("adminUserDetailService")
 public class AdminUserDetailServiceImpl implements UserDetailsService {
@@ -27,8 +32,17 @@ public class AdminUserDetailServiceImpl implements UserDetailsService {
             throw new LessException("用户不存在", 1000);
         }
 
-        //定义权限列表.
-        user.setRoles(sysRoleService.listRolesByUserId(user.getUserId()));
+        //定义权限列表. // 给超级用户直接设置一个SUPER
+        if (user.getUserId().equals(Constant.SUPER_USER_ID)) {
+            SysRole sysRole = new SysRole();
+            sysRole.setRoleId(0l);
+            sysRole.setRoleName("SUPER");
+            List<SysRole> roles = new ArrayList<>();
+            roles.add(sysRole);
+            user.setRoles(roles);
+        } else {
+            user.setRoles(sysRoleService.listRolesByUserId(user.getUserId()));
+        }
 
         return user;
     }

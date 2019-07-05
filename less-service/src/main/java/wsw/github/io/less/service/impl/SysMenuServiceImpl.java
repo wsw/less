@@ -23,9 +23,8 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     public List<SysMenu> listMenusByRoles(List<SysRole> roles) {
-        if (roles.stream().filter(role -> role.getRoleName() == "SUPER") != null){
+        if (roles.stream().filter(role -> role.getRoleName().equals("SUPER")) != null){
             QueryWrapper query = new QueryWrapper();
-//            query.le("type", 1);
             query.orderByAsc("order_num");
             return baseMapper.selectList(query);
         } else {
