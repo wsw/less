@@ -1,6 +1,7 @@
 package wsw.github.io.less.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import wsw.github.io.less.dao.entity.SysMenu;
 import wsw.github.io.less.dao.entity.SysRoleMenu;
 import wsw.github.io.less.dao.mapper.SysRoleMenuMapper;
 import wsw.github.io.less.service.SysRoleMenuService;
@@ -22,8 +23,13 @@ public class SysRoleMenuServiceImpl extends ServiceImpl<SysRoleMenuMapper, SysRo
 
     @Override
     public List<SysRoleMenu> findByMenuId(long id) {
-        QueryWrapper queryWrapper = new QueryWrapper();
+        QueryWrapper<SysRoleMenu> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("menu_id", id);
         return baseMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public List<Long> findByRoleId(long id) {
+        return baseMapper.findByRoleId(id);
     }
 }

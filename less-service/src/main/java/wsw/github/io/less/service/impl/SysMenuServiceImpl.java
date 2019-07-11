@@ -22,9 +22,9 @@ import java.util.List;
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements SysMenuService {
 
     @Override
-    public List<SysMenu> listMenusByRoles(List<SysRole> roles) {
-        if (roles.stream().filter(role -> role.getRoleName().equals("SUPER")) != null){
-            QueryWrapper query = new QueryWrapper();
+    public List<SysMenu> listMenusByRoles(List<SysRole> roles, boolean isSuper) {
+        if (isSuper){
+            QueryWrapper<SysMenu> query = new QueryWrapper<>();
             query.orderByAsc("order_num");
             return baseMapper.selectList(query);
         } else {

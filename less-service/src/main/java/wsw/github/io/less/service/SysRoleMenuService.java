@@ -1,5 +1,6 @@
 package wsw.github.io.less.service;
 
+import wsw.github.io.less.dao.entity.SysMenu;
 import wsw.github.io.less.dao.entity.SysRoleMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -15,4 +16,5 @@ import java.util.List;
  */
 public interface SysRoleMenuService extends IService<SysRoleMenu> {
     List<SysRoleMenu> findByMenuId(long id);
+    List<Long> findByRoleId(long id);
 }

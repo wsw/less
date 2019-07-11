@@ -2,6 +2,7 @@ package wsw.github.io.less.admin.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import wsw.github.io.less.common.util.Constant;
 import wsw.github.io.less.common.util.R;
 import wsw.github.io.less.dao.entity.SysMenu;
 import wsw.github.io.less.dao.entity.SysUser;
@@ -17,7 +18,11 @@ public class SysMenuController extends AbstractController {
     @GetMapping("menus")
     public R menus() {
         SysUser user = getCurrentUser();
-        return R.ok().put("menus", sysMenuService.listMenusByRoles(user.getRoles()));
+        return R.ok()
+                .put("menus", sysMenuService.listMenusByRoles(
+                        user.getRoles(),
+                        user.getUserId() == Constant.SUPER_USER_ID)
+                );
     }
 
     @PostMapping("menu")
@@ -26,7 +31,7 @@ public class SysMenuController extends AbstractController {
     }
 
     @PutMapping("menu")
-    public R updateMenu(@RequestBody SysMenu sysMenu){
+    public R updateMenu(@RequestBody SysMenu sysMenu) {
         return R.ok().put("status", sysMenuService.updateById(sysMenu));
     }
 

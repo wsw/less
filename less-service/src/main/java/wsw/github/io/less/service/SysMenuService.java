@@ -15,5 +15,5 @@ import java.util.List;
  * @since 2019-06-13
  */
 public interface SysMenuService extends IService<SysMenu> {
-    List<SysMenu> listMenusByRoles(List<SysRole> roles);
+    List<SysMenu> listMenusByRoles(List<SysRole> roles, boolean isSuper);
 }
