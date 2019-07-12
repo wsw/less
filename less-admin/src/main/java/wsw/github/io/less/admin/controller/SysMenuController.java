@@ -17,11 +17,16 @@ public class SysMenuController extends AbstractController {
 
     @GetMapping("menus")
     public R menus() {
+        return R.ok().put("menus", sysMenuService.list());
+    }
+
+    @GetMapping("navMenu")
+    public R navMenu() {
         SysUser user = getCurrentUser();
         return R.ok()
                 .put("menus", sysMenuService.listMenusByRoles(
                         user.getRoles(),
-                        user.getUserId() == Constant.SUPER_USER_ID)
+                        user.getUserId().equals(Constant.SUPER_USER_ID) )
                 );
     }
 
